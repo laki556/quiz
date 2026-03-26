@@ -9,7 +9,7 @@ function Form3() {
 
   const [startTime, setStartTime] = useState(Date.now());
   const [answers, setAnswers] = useState<Record<string, string>>(quiz.form3 || {});
-  const [answerType, setAnswerType] = useState(quiz.answerType || "");
+  // const [answerType, setAnswerType] = useState(quiz.answerType || "");
   const [audioCount, setAudioCount] = useState<Record<string, number>>(quiz.audioCount || {});
   const [trainingInterest, setTrainingInterest] = useState<string>("");
   const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ function Form3() {
     setQuiz((prev: any) => ({
       ...prev,
       form3: answers,
-      answerType,
+      // answerType,
       audioCount,
       trainingInterest,
       timeSpent: { ...prev.timeSpent, form3: timeSpent },
@@ -58,7 +58,7 @@ function Form3() {
     const payload = {
       name: quiz.form1.name,
       responses: { ...quiz.form1, ...quiz.form2, ...quiz.form3, ...answers },
-      answerType,
+      // answerType,
       trainingInterest,
       audioCount,
       timeSpent: { ...quiz.timeSpent, form3: timeSpent },
@@ -147,27 +147,27 @@ function Form3() {
           </div>
         </div>
 
-        {/* ANSWER TYPE */}
-        <div className="text-center mt-12">
-          <h2 className="mb-5 text-lg sm:text-xl font-semibold text-white">
-            ඉහත හඩපට ඇසීම මත පදනම්ව ඔබ පිළිතුරු ලබාදුන්නේ කෙසේද?
-          </h2>
-          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-6 text-white">
-            {["consciously - දැනුවත්ව", "unconsciously - නොදැනුවත්ව", "randomly - අහඹු ලෙස", "unintentionally - නොසිතාම"].map((type) => (
-              <label key={type} className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="type"
-                  value={type}
-                  checked={answerType === type}
-                  onChange={(e) => setAnswerType(e.target.value)}
-                  className="accent-yellow-400"
-                />
-                {type}
-              </label>
-            ))}
-          </div>
-        </div>
+        {/*/!* ANSWER TYPE *!/*/}
+        {/*<div className="text-center mt-12">*/}
+        {/*  <h2 className="mb-5 text-lg sm:text-xl font-semibold text-white">*/}
+        {/*    ඉහත හඩපට ඇසීම මත පදනම්ව ඔබ පිළිතුරු ලබාදුන්නේ කෙසේද?*/}
+        {/*  </h2>*/}
+        {/*  <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-6 text-white">*/}
+        {/*    {["consciously - දැනුවත්ව", "unconsciously - නොදැනුවත්ව", "randomly - අහඹු ලෙස", "unintentionally - නොසිතාම"].map((type) => (*/}
+        {/*      <label key={type} className="flex items-center gap-2">*/}
+        {/*        <input*/}
+        {/*          type="radio"*/}
+        {/*          name="type"*/}
+        {/*          value={type}*/}
+        {/*          checked={answerType === type}*/}
+        {/*          onChange={(e) => setAnswerType(e.target.value)}*/}
+        {/*          className="accent-yellow-400"*/}
+        {/*        />*/}
+        {/*        {type}*/}
+        {/*      </label>*/}
+        {/*    ))}*/}
+        {/*  </div>*/}
+        {/*</div>*/}
 
         {/* NAVIGATION */}
         <div className="flex flex-col sm:flex-row justify-between gap-4 mt-12">
