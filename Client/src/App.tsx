@@ -6,6 +6,7 @@ import Form4 from './pages/form4'
 import AdminGuard from "./pages/AdminGuard.tsx";
 import ResponseList from "./pages/admin/ResponseList.tsx";
 import ResponseView from "./pages/admin/ReponseView.tsx";
+import ThankYou from "./pages/Thankyou.tsx";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route path="/form2" element={<Form2 />} />
       <Route path="/form3" element={<Form3 />} />
       <Route path="/form4" element={<Form4 />} />
+       <Route path="/thank-you" element={<ThankYou />} />
 
        <Route path="/admin"
          element={

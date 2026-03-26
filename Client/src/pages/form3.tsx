@@ -12,6 +12,7 @@ function Form3() {
   const [answerType, setAnswerType] = useState(quiz.answerType || "");
   const [audioCount, setAudioCount] = useState<Record<string, number>>(quiz.audioCount || {});
   const [trainingInterest, setTrainingInterest] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => setStartTime(Date.now()), []);
 
@@ -51,6 +52,8 @@ function Form3() {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
+
     const timeSpent = saveQuiz();
     const payload = {
       name: quiz.form1.name,
@@ -70,14 +73,15 @@ function Form3() {
       const data = await res.json();
 
       if (res.ok) {
-        alert("Thank you! Your responses have been submitted successfully.");
-        navigate("/"); // redirect to first page
+        navigate("/thank-you");
       } else {
         alert(`Submission failed: ${data.message || "Unknown error"}`);
       }
     } catch (err) {
       console.error(err);
       alert("Submission failed. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -121,28 +125,6 @@ function Form3() {
           </div>
         ))}
 
-        {/* ANSWER TYPE */}
-        <div className="text-center mt-12">
-          <h2 className="mb-5 text-lg sm:text-xl font-semibold text-white">
-            How did you answer?
-          </h2>
-          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-6 text-white">
-            {["consciously", "unconsciously", "randomly", "unintentionally"].map((type) => (
-              <label key={type} className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="type"
-                  value={type}
-                  checked={answerType === type}
-                  onChange={(e) => setAnswerType(e.target.value)}
-                  className="accent-yellow-400"
-                />
-                {type}
-              </label>
-            ))}
-          </div>
-        </div>
-
         {/* TRAINING INTEREST */}
         <div className="mt-8">
           <p className="mb-2 text-white">
@@ -165,6 +147,28 @@ function Form3() {
           </div>
         </div>
 
+        {/* ANSWER TYPE */}
+        <div className="text-center mt-12">
+          <h2 className="mb-5 text-lg sm:text-xl font-semibold text-white">
+            ඉහත හඩපට ඇසීම මත පදනම්ව ඔබ පිළිතුරු ලබාදුන්නේ කෙසේද?
+          </h2>
+          <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-6 text-white">
+            {["consciously - දැනුවත්ව", "unconsciously - නොදැනුවත්ව", "randomly - අහඹු ලෙස", "unintentionally - නොසිතාම"].map((type) => (
+              <label key={type} className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="type"
+                  value={type}
+                  checked={answerType === type}
+                  onChange={(e) => setAnswerType(e.target.value)}
+                  className="accent-yellow-400"
+                />
+                {type}
+              </label>
+            ))}
+          </div>
+        </div>
+
         {/* NAVIGATION */}
         <div className="flex flex-col sm:flex-row justify-between gap-4 mt-12">
           <button
@@ -176,9 +180,10 @@ function Form3() {
 
           <button
             onClick={handleSubmit}
+            disabled={loading}
             className="w-full sm:w-auto bg-green-500 text-white px-8 sm:px-12 py-3 rounded-full hover:bg-green-600 transition"
           >
-            Submit
+            {loading ? "Submitting Please Wait..." : "Submit"}
           </button>
         </div>
 
