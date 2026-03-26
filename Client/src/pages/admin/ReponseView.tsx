@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { API } from "../../constants/api.ts";
+import React, {useEffect, useState} from "react";
+import {useParams, useNavigate} from "react-router-dom";
+import {API} from "../../constants/api.ts";
 
 interface ResponseData {
   _id: string;
@@ -18,7 +18,7 @@ interface ResponseData {
 }
 
 const ResponseView: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const {id} = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const [data, setData] = useState<ResponseData | null>(null);
@@ -79,7 +79,6 @@ const ResponseView: React.FC = () => {
   const r = data.responses;
   const t = data.timeSpent || {};
 
-  // 🔥 Dynamic grouping
   const pitchKeys = Object.keys(r || {}).filter((key) =>
     key.includes(".")
   );
@@ -111,7 +110,6 @@ const ResponseView: React.FC = () => {
     <div className="min-h-screen bg-gray-50 p-4">
       <div className="max-w-3xl mx-auto">
 
-        {/* Top bar */}
         <div className="flex justify-between items-center mb-4">
           <button
             onClick={() => navigate("/admin")}
@@ -132,18 +130,17 @@ const ResponseView: React.FC = () => {
           </button>
         </div>
 
-        {/* Header */}
         <h2 className="text-2xl font-bold mb-2">{data.name}</h2>
         <p className="text-sm text-gray-500 mb-4">
           Submitted: {formatDate(data.createdAt)}
         </p>
 
-        {/* Basic */}
+        {/* Details */}
         <Section title="Basic Info">
-          <Item label="Name" value={data.name} />
-          <Item label="Year" value={r?.year} />
-          <Item label="JLPT" value={r?.jlpt} />
-          <Item label="Study Japanese" value={r?.studyJapanese} />
+          <Item label="Name" value={data.name}/>
+          <Item label="Year" value={r?.year}/>
+          <Item label="JLPT" value={r?.jlpt}/>
+          <Item label="Study Japanese" value={r?.studyJapanese}/>
         </Section>
 
         {/* Words */}
@@ -160,18 +157,18 @@ const ResponseView: React.FC = () => {
         {/* Pitch */}
         <Section title="Pitch Answers">
           {pitchKeys.map((key) => (
-            <Item key={key} label={key} value={r?.[key]} />
+            <Item key={key} label={key} value={r?.[key]}/>
           ))}
         </Section>
 
         {/* Understanding */}
         <Section title="Understanding">
-          <Item label="Q5. ඔබ ඒවායෙහි අර්ථය හඳුනාගන්නේ කෙසේද?" value={r?.reasonForAnswer} />
+          <Item label="Q5. ඔබ ඒවායෙහි අර්ථය හඳුනාගන්නේ කෙසේද?" value={r?.reasonForAnswer}/>
           <Item
             label="Q6. මෙවැනි අර්ථ රැසක් ඇතැම් වචන වලට පැවතීම නිසා අවුල් සහගත තත්වයකට පත් වී තිබේද?"
             value={r?.canIdentifyExamples}
           />
-          <Item label={`ප්‍රශ්න අංක 6ට "නැත" ලෙස පිළිතුරු දැක්වූවන් පමණක් පිළිතුරු සපයන්න.`} value={r?.reasonForNoQ6} />
+          <Item label={`ප්‍රශ්න අංක 6ට "නැත" ලෙස පිළිතුරු දැක්වූවන් පමණක් පිළිතුරු සපයන්න.`} value={r?.reasonForNoQ6}/>
         </Section>
 
         {/* Awareness */}
@@ -192,15 +189,14 @@ const ResponseView: React.FC = () => {
 
         {/* Other */}
         <Section title="Other">
-          <Item label="Q4. ඇතැම් ජපන් වචන උච්චාරණය එකම වගේ වුණත් අර්ථය වෙනස් වන අවස්ථා ඇත." value={r?.similarWords} />
-          <Item label="Q11. ඔබට ජපන් භාෂාවේ පවතින ස්වර උච්චාරණ මඟහැරී ඇති බව සිතනවාද?" value={r?.pitchKnowledge} />
-          {/*<Item label="Pitch Difficulty" value={r?.pitchDifficulty} />*/}
+          <Item label="Q4. ඇතැම් ජපන් වචන උච්චාරණය එකම වගේ වුණත් අර්ථය වෙනස් වන අවස්ථා ඇත." value={r?.similarWords}/>
+          <Item label="Q11. ඔබට ජපන් භාෂාවේ පවතින ස්වර උච්චාරණ මඟහැරී ඇති බව සිතනවාද?" value={r?.pitchKnowledge}/>
           <Item
             label={`Q13. "උච්චාරණය එක හා සමාන වුවත් අර්ථය වෙනස් වචන" - නිවැරදිව උච්චාරණය කිරීමට,
             ඇහුම්කන්දීමට පුහුණුවීම මඟින් ජපන් භාෂා දැනුම වැඩි දියුණු කරගැනීමට`}
             value={r?.trainingInterest}
           />
-          <Item label="Answer Type" value={data.answerType} />
+          <Item label="Answer Type" value={data.answerType}/>
         </Section>
 
         {/* Reasons */}
@@ -214,18 +210,18 @@ const ResponseView: React.FC = () => {
               />
             ))
           ) : (
-            <Item label="Reasons" value="-" />
+            <Item label="Reasons" value="-"/>
           )}
 
-          <Item label="Other Reason" value={r?.otherReason} />
+          <Item label="Other Reason" value={r?.otherReason}/>
         </Section>)}
 
         {/* Time */}
         <Section title="Time Analysis">
-          <Item label="Form 1 Time" value={formatTime(t.form1)} />
-          <Item label="Form 2 Time" value={formatTime(t.form2)} />
-          <Item label="Form 3 Time" value={formatTime(t.form3)} />
-          <Item label="Total Time" value={formatTime(data.totalTime)} />
+          <Item label="Form 1 Time" value={formatTime(t.form1)}/>
+          <Item label="Form 2 Time" value={formatTime(t.form2)}/>
+          <Item label="Form 3 Time" value={formatTime(t.form3)}/>
+          <Item label="Total Time" value={formatTime(data.totalTime)}/>
         </Section>
 
       </div>
@@ -235,12 +231,7 @@ const ResponseView: React.FC = () => {
 
 export default ResponseView;
 
-// 🔹 Reusable components
-
-const Section: React.FC<{ title: string; children: React.ReactNode }> = ({
-                                                                           title,
-                                                                           children,
-                                                                         }) => (
+const Section: React.FC<{ title: string; children: React.ReactNode }> = ({title, children,}) => (
   <div className="mb-4">
     <h3 className="text-lg font-semibold mb-2">{title}</h3>
     <div className="bg-white rounded-xl shadow-sm border p-4 space-y-2">
@@ -249,10 +240,7 @@ const Section: React.FC<{ title: string; children: React.ReactNode }> = ({
   </div>
 );
 
-const Item: React.FC<{ label: string; value: any }> = ({
-                                                         label,
-                                                         value,
-                                                       }) => (
+const Item: React.FC<{ label: string; value: any }> = ({label, value,}) => (
   <div className="flex justify-between text-sm border-b last:border-none py-1">
     <span className="text-gray-600">{label}</span>
     <span className="font-medium text-right break-words max-w-[60%]">

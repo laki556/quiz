@@ -51,7 +51,7 @@ const adminSchema = new mongoose.Schema({
 const Admin = mongoose.model("Admin", adminSchema);
 
 // ======================
-// Create admin PIN
+// Create admin PIN / Run this once
 // ======================
 // const createAdmin = async () => {
 //   const hashedPin = await bcrypt.hash("0000", 10);
@@ -76,7 +76,6 @@ app.post("/api/admin/login", async (req, res) => {
     return res.status(401).json({ message: "Invalid PIN" });
   }
 
-  // create token
   const token = jwt.sign(
       { role: "admin" },
       process.env.JWT_SECRET,
